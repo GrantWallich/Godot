@@ -1,2 +1,16 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Assets - Large binary files (models, textures, audio)
+Assets/
+
+# But keep the README for documentation
+!Assets/README.md
+
+# Optional: Allow small reference images
+!Assets/**/*.png
+!Assets/**/*.jpg
+
+# Blender backup files
+*.blend1
+*.blend2
