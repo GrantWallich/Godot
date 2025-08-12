@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bx8m4lan2p5q7"]
+
+[ext_resource type="Shader" uid="uid://picso8bj5acl" path="res://Assets/Materials/WaveShader.gdshader" id="1_shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/wave_speed = 1.926
+shader_parameter/wave_scale = 4.196
+shader_parameter/noise_scale = 20.0
+shader_parameter/color_a = Color(0.2, 0.6, 1, 1)
+shader_parameter/color_b = Color(0.8, 0.2, 0.4, 1)
+shader_parameter/triplanar_sharpness = 8.0
+shader_parameter/use_triplanar = true

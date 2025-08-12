@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var gunRay = $Head/Camera3d/RayCast3d as RayCast3D
 @onready var Cam = $Head/Camera3d as Camera3D
 @export var _bullet_scene : PackedScene
-var mouseSensibility = 1200
+@export var mouse_sensitivity : float = 600.0
 var mouse_relative_x = 0
 var mouse_relative_y = 0
 const SPEED = 5.0
@@ -13,9 +13,9 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	#Captures mouse and stops rgun from hitting yourself
+	#Captures mouse and stops gun from hitting yourself
 	gunRay.add_exception(self)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Don't capture mouse immediately - wait for user click
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -40,9 +40,16 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event):
-	if event is InputEventMouseMotion:
-		rotation.y -= event.relative.x / mouseSensibility
-		$Head/Camera3d.rotation.x -= event.relative.y / mouseSensibility
+	# Capture mouse on first click
+	if event is InputEventMouseButton and event.pressed:
+		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			return  # Don't process the click that captures the mouse
+	
+	# Only process mouse motion if mouse is captured
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotation.y -= event.relative.x / mouse_sensitivity
+		$Head/Camera3d.rotation.x -= event.relative.y / mouse_sensitivity
 		$Head/Camera3d.rotation.x = clamp($Head/Camera3d.rotation.x, deg_to_rad(-90), deg_to_rad(90) )
 		mouse_relative_x = clamp(event.relative.x, -50, 50)
 		mouse_relative_y = clamp(event.relative.y, -50, 10)

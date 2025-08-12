@@ -1,0 +1,1 @@
+extends "res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/examples/rotate.gd"

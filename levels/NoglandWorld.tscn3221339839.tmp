@@ -1,0 +1,196 @@
+[gd_scene load_steps=18 format=3 uid="uid://d0oibr12k5fph"]
+
+[ext_resource type="PackedScene" uid="uid://7gv6q50fuutj" path="res://Scenes/Player/player.tscn" id="1_player"]
+[ext_resource type="Shader" uid="uid://cqi63c6yf1p1d" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/shaders/hypercasualSky.gdshader" id="2_5a0xq"]
+[ext_resource type="PackedScene" uid="uid://dj26sacnhty4r" path="res://addons/devblocks/blocks/basic_block.tscn" id="2_ground"]
+[ext_resource type="Material" uid="uid://bcjm3ruq4cwrh" path="res://Assets/Materials/TrueWaveMaterial.tres" id="3_pfv3h"]
+[ext_resource type="PackedScene" uid="uid://bbjs81rd0l45k" path="res://Assets/Models/Buildings/BirdHouse/house_of_nogs_working_remeshed_uvd.tscn" id="5_u50p8"]
+[ext_resource type="PackedScene" uid="uid://fx7n4unokie1" path="res://Assets/Models/Buildings/MonoFace/icons_mono_face.tscn" id="6_iya5s"]
+[ext_resource type="PackedScene" uid="uid://cpclyuqvhh0iy" path="res://Assets/Models/Buildings/MilkFren/milkfren_v_01_resize.tscn" id="7_5a0xq"]
+[ext_resource type="Shader" uid="uid://dt33ww7dmmdih" path="res://Assets/Materials/Test.tres" id="8_s7cef"]
+[ext_resource type="Script" uid="uid://c2ja1eugyxfeq" path="res://addons/UniParticles3D/UniParticles3D.gd" id="9_ig50s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a0xq"]
+shader = ExtResource("2_5a0xq")
+shader_parameter/blendSmoothness = 0.7
+shader_parameter/colorA = Color(1, 0.826075, 0.364625, 1)
+shader_parameter/colorB = Color(5.96821e-06, 0.650717, 0.890095, 1)
+shader_parameter/deband = true
+shader_parameter/debandDepth = 256.0
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ShaderMaterial_5a0xq")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+background_color = Color(0.2139, 0.570975, 0.69, 1)
+background_energy_multiplier = 1.14
+sky = SubResource("Sky_1")
+ambient_light_source = 2
+ambient_light_color = Color(0.340339, 0.340339, 0.340339, 1)
+ambient_light_energy = 1.49
+tonemap_mode = 4
+tonemap_exposure = 0.5
+
+[sub_resource type="GDScript" id="GDScript_s7cef"]
+script/source = "extends \"res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/examples/wave.gd\"
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7cef"]
+render_priority = 0
+shader = ExtResource("8_s7cef")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ig50s"]
+material = SubResource("ShaderMaterial_s7cef")
+
+[sub_resource type="Curve" id="Curve_nfded"]
+_data = [Vector2(0.00234742, 0.959266), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_ig50s"]
+resource_name = "FPSCOUNTER"
+script/source = "extends Node
+
+var title = \"Nogland FPS Experience v0.1\"
+
+func _ready():
+	set_process(true)
+
+func _process(_delta):
+	var fps = Engine.get_frames_per_second()
+	
+	# Try to set window title (works on desktop, may not work in web)
+	if OS.has_feature(\"web\"):
+		# For web, we could use print to console instead
+		print(\"FPS: \", fps)
+	else:
+		# For desktop builds (Godot 4 method)
+		DisplayServer.window_set_title(title + \" | FPS: \" + str(fps))
+	
+	# Alternative: You could also create a label-based version
+	# by finding a label node and updating its text:
+	# var fps_label = get_node_or_null(\"../UI/FpsLabel\")
+	# if fps_label:
+	#     fps_label.text = \"FPS: \" + str(fps)
+"
+
+[node name="NoglandWorld" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mouse_sensitivity = 200.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.426135, -0.565559, 0.706082, 0.01684, 0.785318, 0.618863, -0.904503, -0.251829, 0.344176, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Ground" parent="." instance=ExtResource("2_ground")]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0.629085, 0)
+block_color_group = 4
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="Control" parent="UI/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrosshairDot" type="ColorRect" parent="UI/Crosshair/Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.8)
+
+[node name="Instructions" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Click to play • WASD to move • ESC to exit"
+horizontal_alignment = 1
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08203, 1.7253, 0.895544)
+material_override = ExtResource("3_pfv3h")
+use_collision = true
+radial_segments = 24
+rings = 12
+
+[node name="HouseOfNogsWorking_Remeshed_uvd" parent="." instance=ExtResource("5_u50p8")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 4.51699, -11.9064)
+
+[node name="icons_monoFace" parent="." instance=ExtResource("6_iya5s")]
+transform = Transform3D(8.16945, 0, -5.76715, 0, 10, 0, 5.76715, 0, 8.16945, 26.9767, 1.22136, -31.0109)
+
+[node name="MF_HOOK" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53769, 0, -8.40008)
+script = SubResource("GDScript_s7cef")
+speed = -5.0
+
+[node name="Milkfren_v01-resize" parent="MF_HOOK" instance=ExtResource("7_5a0xq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06405, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.062895, 0, 0.99802, 0, 1, 0, -0.99802, 0, -0.062895, 2.68209, 1.60294, 0)
+mesh = SubResource("SphereMesh_ig50s")
+
+[node name="UniParticles3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.22506, 1.35796, -7.7177)
+script = ExtResource("9_ig50s")
+start_rotation_degrees_constant = 69.108
+enable_play_behavior = Vector2i(1, 0)
+enable_shape = Vector2i(1, 0)
+radius = 1.005
+radius_thickness = 0.72
+random_direction = 0.317
+emit_from = 1
+enable_size_over_lifetime = Vector2i(1, 0)
+size_over_lifetime = SubResource("Curve_nfded")
+enable_rendering = Vector2i(1, 1)
+metadata/_custom_type_script = "uid://c2ja1eugyxfeq"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96504, -15.8659)
+light_color = Color(0.632658, 0.479644, 0.238175, 1)
+light_energy = 6.131
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="Node3D" type="Node3D" parent="."]
+script = SubResource("GDScript_ig50s")

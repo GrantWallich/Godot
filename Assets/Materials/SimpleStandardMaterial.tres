@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b8k5n2qavxmjq"]
+
+[resource]
+albedo_color = Color(0.8, 0.4, 0.2, 1)
+metallic = 0.2
+roughness = 0.7
+uv1_triplanar = true
+uv1_triplanar_sharpness = 8.0
+
+

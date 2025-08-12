@@ -1,15 +1,22 @@
 # Godot 4+ specific ignores
 .godot/
 
-# Assets - Large binary files (models, textures, audio)
-Assets/
+# Assets - Only hide large binary files
+Assets/Models/
+Assets/Textures/
+Assets/Audio/
 
-# But keep the README for documentation
+# But keep shaders, materials, and documentation
+!Assets/Materials/
 !Assets/README.md
 
-# Optional: Allow small reference images
-!Assets/**/*.png
-!Assets/**/*.jpg
+# Addons/Plugins - Keep these out of version control for now
+addons/
+
+# Export builds - Deploy these separately
+_export/
+exports/
+build/
 
 # Blender backup files
 *.blend1

@@ -11,10 +11,12 @@ config_version=5
 [application]
 
 config/name="FPS template"
-run/main_scene="res://levels/NoglandWorld.tscn"
+run/main_scene="uid://d0oibr12k5fph"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
+[editor_plugins]
 
+enabled=PackedStringArray("res://addons/UniParticles3D/plugin.cfg")
 
 [input]
 
@@ -55,5 +57,6 @@ Shoot={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/canvas_textures/default_texture_repeat=1
