@@ -17,6 +17,10 @@ addons/
 _export/
 exports/
 build/
+.import/
+_export2/
+*.pck
+*.zip
 
 # Blender backup files
 *.blend1

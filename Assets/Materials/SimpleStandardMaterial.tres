@@ -1,10 +1,16 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://b8k5n2qavxmjq"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b8k5n2qavxmjq"]
+
+[ext_resource type="Texture2D" uid="uid://86x3nwefoi64" path="res://Assets/Textures/Halftone_1B_Small.png" id="1_vp1c1"]
 
 [resource]
-albedo_color = Color(0.8, 0.4, 0.2, 1)
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.400679, 0.591662, 0.286657, 1)
 metallic = 0.2
-roughness = 0.7
+roughness_texture = ExtResource("1_vp1c1")
 uv1_triplanar = true
 uv1_triplanar_sharpness = 8.0
-
-
+proximity_fade_distance = 0.01
+distance_fade_mode = 2
+distance_fade_min_distance = 69.19
+distance_fade_max_distance = 9.65

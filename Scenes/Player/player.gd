@@ -4,6 +4,10 @@ extends CharacterBody3D
 @onready var Cam = $Head/Camera3d as Camera3D
 @export var _bullet_scene : PackedScene
 @export var mouse_sensitivity : float = 600.0
+@export var normal_fov : float = 75.0
+@export var zoom_fov : float = 35.0
+@export var zoom_speed : float = 10.0
+@export var zoom_sensitivity_multiplier : float = 2.0
 var mouse_relative_x = 0
 var mouse_relative_y = 0
 const SPEED = 5.0
@@ -11,10 +15,13 @@ const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var is_zooming: bool = false
 
 func _ready():
 	#Captures mouse and stops gun from hitting yourself
 	gunRay.add_exception(self)
+	# Set default camera FOV
+	Cam.fov = normal_fov
 	# Don't capture mouse immediately - wait for user click
 func _physics_process(delta):
 	# Add the gravity.
@@ -38,6 +45,8 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	# Smooth zoom update
+	_update_zoom(delta)
 
 func _input(event):
 	# Capture mouse on first click
@@ -48,11 +57,15 @@ func _input(event):
 	
 	# Only process mouse motion if mouse is captured
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rotation.y -= event.relative.x / mouse_sensitivity
-		$Head/Camera3d.rotation.x -= event.relative.y / mouse_sensitivity
+		var sensitivity := mouse_sensitivity * (zoom_sensitivity_multiplier if is_zooming else 1.0)
+		rotation.y -= event.relative.x / sensitivity
+		$Head/Camera3d.rotation.x -= event.relative.y / sensitivity
 		$Head/Camera3d.rotation.x = clamp($Head/Camera3d.rotation.x, deg_to_rad(-90), deg_to_rad(90) )
 		mouse_relative_x = clamp(event.relative.x, -50, 50)
 		mouse_relative_y = clamp(event.relative.y, -50, 10)
+	# Hold right mouse to zoom
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		is_zooming = event.pressed
 
 func shoot():
 	if not gunRay.is_colliding():
@@ -64,3 +77,7 @@ func shoot():
 	bulletInst.look_at((gunRay.get_collision_point()+gunRay.get_collision_normal()),Vector3.BACK)
 	print(gunRay.get_collision_point())
 	print(gunRay.get_collision_point()+gunRay.get_collision_normal())
+
+func _update_zoom(delta: float) -> void:
+	var target_fov := (zoom_fov if is_zooming else normal_fov)
+	Cam.fov = lerp(Cam.fov, target_fov, clamp(zoom_speed * delta, 0.0, 1.0))

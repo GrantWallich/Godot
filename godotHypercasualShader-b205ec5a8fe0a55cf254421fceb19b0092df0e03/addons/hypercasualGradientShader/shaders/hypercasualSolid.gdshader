@@ -22,10 +22,10 @@ group_uniforms Texture;
 group_uniforms;
 
 group_uniforms Debanding;
-	
+
 	uniform bool deband = true;
 	uniform float debandDepth: hint_range(4.0, 256.0, 1.0) = 256.0;
-	
+
 group_uniforms;
 
 
@@ -34,10 +34,10 @@ group_uniforms;
 
 // The fragment (per-pixel) logic.
 void fragment() {
-	
+
 	// We already know the color! ;)
 	vec3 finalColor = color;
-	
+
 	// Add the texture if enabled.
 	if (useTexture) {
 		vec4 tex = texture(textureSource, UV);
@@ -47,11 +47,11 @@ void fragment() {
 			tex.a
 		);
 	}
-	
+
 	if (deband) {
 		finalColor += valveDeband(FRAGCOORD.xy, debandDepth, TIME);
 	}
-	
+
 	ALBEDO = finalColor * COLOR.rgb;
-	
+
 }

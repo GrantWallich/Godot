@@ -1,15 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bcjm3ruq4cwrh"]
 
-[ext_resource type="Shader" uid="uid://clcyywv5tipcn" path="res://Assets/Materials/TrueWaveShader.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://dbartmgixdc0i" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/shaders/hypercasualSolid.gdshader" id="1_kqhij"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_shader")
-shader_parameter/wave_speed = 1.424
-shader_parameter/wave_frequency = 20.0
-shader_parameter/wave_amplitude = 1.0
-shader_parameter/wave_direction = Vector3(1, 0.2, 0.5)
-shader_parameter/color_a = Color(0.918228, 2.31028e-06, 0.554252, 1)
-shader_parameter/color_b = Color(0.9, 0.9, 1, 1)
-shader_parameter/triplanar_sharpness = 1.0
-shader_parameter/use_triplanar = true
+shader = ExtResource("1_kqhij")
+shader_parameter/color = Color(0.259417, 0.282148, 0.14026, 1)
+shader_parameter/useTexture = false
+shader_parameter/deband = true
+shader_parameter/debandDepth = 256.0

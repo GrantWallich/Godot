@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://Assets/Materials/ToonShaders/ToonBandedLightingShader.gdshader" id="1"]
+
+[resource]
+shader = ExtResource("1")
+shader_parameter/light_direction = Vector3(0.5, 0, 0)
+shader_parameter/highlight_color = Color(1, 0.95, 0.9, 1)
+shader_parameter/mid1_color = Color(0.8, 0.7, 0.6, 1)
+shader_parameter/mid2_color = Color(0.5, 0.4, 0.35, 1)
+shader_parameter/shadow_color = Color(0.2, 0.15, 0.1, 1)
+shader_parameter/highlight_threshold = 0.8
+shader_parameter/mid1_threshold = 0.55
+shader_parameter/mid2_threshold = 0.3
+shader_parameter/smoothness = 0.05
+shader_parameter/roughness = 0.6
+shader_parameter/roughness_channel = 0

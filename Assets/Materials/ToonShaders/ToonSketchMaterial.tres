@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8pjoyk48u6mc"]
+
+[ext_resource type="Shader" uid="uid://dkkdc5u6kwwiw" path="res://Assets/Materials/ToonShaders/ToonSketchShader.gdshader" id="1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/light_direction = Vector3(0.5, 0, 0.5)
+shader_parameter/roughness_amount = 0.585
+shader_parameter/roughness_channel = 0
+shader_parameter/background_color = Color(0.2, 0.2, 0.3, 1)
+shader_parameter/line_color = Color(0.9, 0.9, 1, 1)
+shader_parameter/range = 0.0
+shader_parameter/softness = 0.0
+shader_parameter/angle = 45.0
+shader_parameter/pattern_scale = 11.956
+shader_parameter/line_thickness = 0.6
+shader_parameter/fade_thickness = 0.3
+shader_parameter/fresnel_thickness = 0.4
+shader_parameter/random_thickness = 0.2
+shader_parameter/random_offset = 1.5
+shader_parameter/random_angle = 8.0
+shader_parameter/overall_noise_scale = 35.0
+shader_parameter/fps_effect_strength = 0.256
+shader_parameter/fps_speed = 2.0
+shader_parameter/line_jitter_amount = 0.15

@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://by88hn4isqx4w"]
+
+[ext_resource type="Shader" uid="uid://jkfo8vupx2yd" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/shaders/hypercasual.gdshader" id="1_13ek6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_13ek6")
+shader_parameter/useWorldSpace = true
+shader_parameter/gradientOffset = -0.24
+shader_parameter/gradientSize = -0.09
+shader_parameter/blendSmoothness = 0.19
+shader_parameter/colorTop = Color(0.630239, 0.690991, 0.278996, 1)
+shader_parameter/colorBottom = Color(0.815241, 0.0714178, 0.416858, 1)
+shader_parameter/colorFrontTop = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/colorFrontBottom = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/colorBackTop = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/colorBackBottom = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/colorLeftTop = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/colorLeftBottom = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/colorRightTop = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/colorRightBottom = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/useTexture = false
+shader_parameter/deband = true
+shader_parameter/debandDepth = 256.0

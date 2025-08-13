@@ -1,18 +1,22 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0oibr12k5fph"]
+[gd_scene load_steps=32 format=3 uid="uid://d0oibr12k5fph"]
 
 [ext_resource type="PackedScene" uid="uid://7gv6q50fuutj" path="res://Scenes/Player/player.tscn" id="1_player"]
 [ext_resource type="Shader" uid="uid://cqi63c6yf1p1d" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/shaders/hypercasualSky.gdshader" id="2_5a0xq"]
-[ext_resource type="PackedScene" uid="uid://dj26sacnhty4r" path="res://addons/devblocks/blocks/basic_block.tscn" id="2_ground"]
-[ext_resource type="Material" uid="uid://bcjm3ruq4cwrh" path="res://Assets/Materials/TrueWaveMaterial.tres" id="3_pfv3h"]
+[ext_resource type="Texture2D" uid="uid://86x3nwefoi64" path="res://Assets/Textures/Halftone_1B_Small.png" id="3_s7cef"]
+[ext_resource type="PackedScene" uid="uid://dxmwla6nwa2ou" path="res://Assets/Models/IconGLBs/Cloud/cloud.tscn" id="4_s7cef"]
+[ext_resource type="PackedScene" uid="uid://cgxfba3w3xv1m" path="res://Assets/Models/IconGLBs/Moon/moon.tscn" id="6_5k3ni"]
 [ext_resource type="PackedScene" uid="uid://cpclyuqvhh0iy" path="res://Assets/Models/Buildings/MilkFren/milkfren_v_01_resize.tscn" id="7_5a0xq"]
-[ext_resource type="Shader" uid="uid://dt33ww7dmmdih" path="res://Assets/Materials/Test.tres" id="8_s7cef"]
+[ext_resource type="PackedScene" uid="uid://bsged76c1i7xp" path="res://Assets/Models/Buildings/HouseOfNog/lowpoly_bake.tscn" id="8_ig50s"]
 [ext_resource type="Script" uid="uid://c2ja1eugyxfeq" path="res://addons/UniParticles3D/UniParticles3D.gd" id="9_ig50s"]
-[ext_resource type="PackedScene" uid="uid://b581v2fwyuxlc" path="res://Assets/Models/Buildings/HouseOfNog/house_of_nogs_set.tscn" id="9_nfded"]
+[ext_resource type="PackedScene" uid="uid://cdwna61733ovl" path="res://Assets/Models/Buildings/SewerDen/sewer_den_resize.tscn" id="9_nfded"]
+[ext_resource type="Script" uid="uid://duwbbfgjkdwuc" path="res://addons/interaction/light_zone.gd" id="10_lightzone"]
+[ext_resource type="Shader" uid="uid://cvo6tu0k2rrpn" path="res://Assets/Materials/CloudNoise.gdshader" id="11_5k3ni"]
+[ext_resource type="PackedScene" uid="uid://c4ojae0ijnsme" path="res://Assets/Models/IconGLBs/Star/star.tscn" id="12_il86q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5a0xq"]
 shader = ExtResource("2_5a0xq")
-shader_parameter/blendSmoothness = 0.7
-shader_parameter/colorA = Color(1, 0.826075, 0.364625, 1)
+shader_parameter/blendSmoothness = 0.4
+shader_parameter/colorA = Color(0.993423, 0, 0.558186, 1)
 shader_parameter/colorB = Color(5.96821e-06, 0.650717, 0.890095, 1)
 shader_parameter/deband = true
 shader_parameter/debandDepth = 256.0
@@ -22,46 +26,234 @@ sky_material = SubResource("ShaderMaterial_5a0xq")
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 2
-background_color = Color(0.2139, 0.570975, 0.69, 1)
-background_energy_multiplier = 1.14
+background_color = Color(0.144063, 0.144063, 0.144063, 1)
+background_energy_multiplier = 1.53
 sky = SubResource("Sky_1")
 ambient_light_source = 2
 ambient_light_color = Color(0.340339, 0.340339, 0.340339, 1)
-ambient_light_energy = 1.49
+ambient_light_energy = 2.23
 tonemap_mode = 4
-tonemap_exposure = 0.5
+tonemap_exposure = 0.61
+glow_enabled = true
+glow_intensity = 2.68
+glow_bloom = 0.05
+glow_hdr_threshold = 0.96
+glow_hdr_scale = 1.14
+glow_hdr_luminance_cap = 13.6
+fog_light_color = Color(0.365019, 0.666574, 0.882002, 1)
+fog_light_energy = 0.94
+fog_height_density = 0.106
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig50s"]
+albedo_color = Color(0.385562, 0.649861, 0.345515, 1)
+roughness_texture = ExtResource("3_s7cef")
+distance_fade_mode = 2
+distance_fade_min_distance = 55.1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+material = SubResource("StandardMaterial3D_ig50s")
+size = Vector2(1000, 1000)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_s7cef"]
+
+[sub_resource type="Animation" id="Animation_ig50s"]
+resource_name = "Clouds"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-11.4236, -0.25, 0, 0.25, 0, 21.216, -0.25, 0, 0.25, 0, -11.4236, -0.25, 0, 0.25, 0, -21.134, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(-0.0333333, 10, 20, 20.0306)
+}
+
+[sub_resource type="Animation" id="Animation_nfded"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-11.4236, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(14.4299, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-17.495, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5k3ni"]
+_data = {
+&"Clouds": SubResource("Animation_ig50s"),
+&"RESET": SubResource("Animation_nfded")
+}
+
+[sub_resource type="Animation" id="Animation_il86q"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.794509, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_5k3ni"]
+resource_name = "new_animation"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation:z")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-0.794509, -0.25, 0, 0.25, 0, 1.4125, -0.25, 0, 0.25, 0, -0.794509, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2, 4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7tkvp"]
+_data = {
+&"RESET": SubResource("Animation_il86q"),
+&"new_animation": SubResource("Animation_5k3ni")
+}
 
 [sub_resource type="GDScript" id="GDScript_s7cef"]
 script/source = "extends \"res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/examples/wave.gd\"
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7cef"]
-render_priority = 0
-shader = ExtResource("8_s7cef")
-
-[sub_resource type="SphereMesh" id="SphereMesh_ig50s"]
-material = SubResource("ShaderMaterial_s7cef")
-
 [sub_resource type="Curve" id="Curve_nfded"]
 _data = [Vector2(0.00234742, 0.959266), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_lightzone"]
+size = Vector3(8.7627, 7.11047, 8)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5k3ni"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5k3ni"]
+seamless = true
+seamless_blend_skirt = 0.585
+noise = SubResource("FastNoiseLite_5k3ni")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_il86q"]
+render_priority = 0
+shader = ExtResource("11_5k3ni")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_5k3ni")
+shader_parameter/cloud_color = Vector4(0.86, 0.955, 1.4, 1)
+shader_parameter/alpha = 0.428
+shader_parameter/threshold = 0.549
+shader_parameter/softness = 0.075
+shader_parameter/scale1 = 0.01
+shader_parameter/scale2 = 0.001
+shader_parameter/speed1 = 1.0
+shader_parameter/speed2 = -0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_7tkvp"]
+material = SubResource("ShaderMaterial_il86q")
+
 [node name="NoglandWorld" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.394476, 2, 20.6308)
 mouse_sensitivity = 200.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.426135, -0.565559, 0.706082, 0.01684, 0.785318, 0.618863, -0.904503, -0.251829, 0.344176, 0, 10, 0)
+[node name="Directional_HOOK" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 10, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Directional_HOOK"]
+transform = Transform3D(0.391015, -0.753916, 0.527937, 0.0410344, 0.587314, 0.808318, -0.919469, -0.294401, 0.260585, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ground" parent="." instance=ExtResource("2_ground")]
-transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0.629085, 0)
-block_color_group = 4
+[node name="GroundPlane" type="Node3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="GroundPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08562, 0)
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.048, 1.086, 0)
+shape = SubResource("WorldBoundaryShape3D_s7cef")
+
+[node name="Cloud" parent="GroundPlane" instance=ExtResource("4_s7cef")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -11.4236, 14.4299, -17.495)
+
+[node name="Cloud" type="AnimationPlayer" parent="GroundPlane/Cloud"]
+libraries = {
+&"": SubResource("AnimationLibrary_5k3ni")
+}
+autoplay = "Clouds"
+
+[node name="Moon_HOOK" type="Node3D" parent="GroundPlane"]
+transform = Transform3D(0.700635, 0.713519, 0, -0.713519, 0.700635, 0, 0, 0, 1, -47.6681, 44.6347, -72.6107)
+
+[node name="Moon" parent="GroundPlane/Moon_HOOK" instance=ExtResource("6_5k3ni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31442, -5.56127, 0.523351)
+
+[node name="Moon2" type="AnimationPlayer" parent="GroundPlane/Moon_HOOK"]
+libraries = {
+&"": SubResource("AnimationLibrary_7tkvp")
+}
+autoplay = "new_animation"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -94,10 +286,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 2.0
-offset_bottom = 2.0
+offset_left = -6.0
+offset_top = -1.0
+offset_right = 6.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.8)
+
+[node name="CrosshairDot2" type="ColorRect" parent="UI/Crosshair/Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -6.0
+offset_right = 1.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.8)
@@ -117,12 +324,52 @@ grow_vertical = 0
 text = "Click to play • WASD to move • ESC to exit"
 horizontal_alignment = 1
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56704, 1.60198, -6.67278)
-material_override = ExtResource("3_pfv3h")
-use_collision = true
-radial_segments = 24
-rings = 12
+[node name="InspectUI" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/InspectUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -180.0
+offset_right = 260.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/InspectUI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UI/InspectUI/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Body" type="RichTextLabel" parent="UI/InspectUI/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
 
 [node name="MF_HOOK" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53769, 0, -8.40008)
@@ -132,15 +379,13 @@ speed = -5.0
 [node name="Milkfren_v01-resize" parent="MF_HOOK" instance=ExtResource("7_5a0xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06405, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.062895, 0, 0.99802, 0, 1, 0, -0.99802, 0, -0.062895, 4.1671, 1.60294, -6.61553)
-mesh = SubResource("SphereMesh_ig50s")
-
 [node name="UniParticles3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.22506, 1.35796, -7.00618)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21552, 4.20478, -9.39678)
 script = ExtResource("9_ig50s")
 start_rotation_degrees_constant = 69.108
 enable_play_behavior = Vector2i(1, 0)
+enable_emission = Vector2i(1, 1)
+rate_over_distance = 25.0
 enable_shape = Vector2i(1, 0)
 radius = 1.005
 radius_thickness = 0.72
@@ -154,8 +399,28 @@ metadata/_custom_type_script = "uid://c2ja1eugyxfeq"
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.262122, 4.49205, -17.1151)
 light_color = Color(0.9388, 0.809368, 0.621138, 1)
-light_energy = 3.815
+light_energy = 7.486
 light_bake_mode = 1
 
-[node name="HouseOfNogsSet" parent="." instance=ExtResource("9_nfded")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 4.44482, -12.9262)
+[node name="LightZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -16.2018)
+script = ExtResource("10_lightzone")
+light_node_path = NodePath("../OmniLight3D")
+intensity_on = 8.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.55524, 0)
+shape = SubResource("BoxShape3D_lightzone")
+
+[node name="LowpolyBake" parent="." instance=ExtResource("8_ig50s")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.570968, 4.47034, -12.0847)
+
+[node name="SewerDen-resize" parent="." instance=ExtResource("9_nfded")]
+transform = Transform3D(-1, 0, 8.74228e-08, 1.87742e-08, 0.976669, 0.214752, -8.53831e-08, 0.214752, -0.976669, 1.82489, 1.53115, -13.7621)
+
+[node name="Clouds" type="MeshInstance3D" parent="."]
+transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 1.76855, 0)
+mesh = SubResource("SphereMesh_7tkvp")
+
+[node name="Star" parent="." instance=ExtResource("12_il86q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.552762, 12.4144, -16.1022)
