@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://j68nerps5i8n"]
+
+[ext_resource type="Shader" uid="uid://dv7di3x6jubjm" path="res://Assets/Materials/Postfx/Pixel.gdshader" id="1_yncit"]
+
+[resource]
+shader = ExtResource("1_yncit")
+shader_parameter/pixels = 200.0
+shader_parameter/mix_amount = 1.0
