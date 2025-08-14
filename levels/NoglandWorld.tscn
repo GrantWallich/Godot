@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://d0oibr12k5fph"]
+[gd_scene load_steps=52 format=3 uid="uid://d0oibr12k5fph"]
 
 [ext_resource type="PackedScene" uid="uid://7gv6q50fuutj" path="res://Scenes/Player/player.tscn" id="1_player"]
 [ext_resource type="Shader" uid="uid://cqi63c6yf1p1d" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/shaders/hypercasualSky.gdshader" id="2_5a0xq"]
@@ -7,15 +7,19 @@
 [ext_resource type="PackedScene" uid="uid://cgxfba3w3xv1m" path="res://Assets/Models/IconGLBs/Moon/moon.tscn" id="6_5k3ni"]
 [ext_resource type="PackedScene" uid="uid://bdoop0bvdxukn" path="res://Assets/Models/Buildings/Rainbow/bird_totem_low_poly.tscn" id="6_88hpn"]
 [ext_resource type="PackedScene" uid="uid://cpclyuqvhh0iy" path="res://Assets/Models/Buildings/MilkFren/milkfren_v_01_resize.tscn" id="7_5a0xq"]
-[ext_resource type="Script" uid="uid://bl36ektin6ak1" path="res://levels/fart.gd" id="7_de3i5"]
 [ext_resource type="AudioStream" uid="uid://18ghob7ckh52" path="res://Assets/SFX/11L-a_long_fart-1755078182563.mp3" id="8_de3i5"]
 [ext_resource type="PackedScene" uid="uid://bsged76c1i7xp" path="res://Assets/Models/Buildings/HouseOfNog/lowpoly_bake.tscn" id="8_ig50s"]
+[ext_resource type="Script" uid="uid://bl36ektin6ak1" path="res://Scripts/fart.gd" id="8_k41sh"]
 [ext_resource type="Script" uid="uid://c2ja1eugyxfeq" path="res://addons/UniParticles3D/UniParticles3D.gd" id="9_ig50s"]
 [ext_resource type="PackedScene" uid="uid://cdwna61733ovl" path="res://Assets/Models/Buildings/SewerDen/sewer_den_resize.tscn" id="9_nfded"]
-[ext_resource type="Script" uid="uid://duwbbfgjkdwuc" path="res://addons/interaction/light_zone.gd" id="10_lightzone"]
+[ext_resource type="Script" uid="uid://duwbbfgjkdwuc" path="res://Scripts/light_zone.gd" id="10_lightzone"]
 [ext_resource type="Shader" uid="uid://cvo6tu0k2rrpn" path="res://Assets/Materials/CloudNoise.gdshader" id="11_5k3ni"]
+[ext_resource type="AudioStream" uid="uid://syu3rxo2hhjw" path="res://Assets/SFX/11L-click_sound-1755159611790.mp3" id="11_pkucd"]
 [ext_resource type="Script" uid="uid://bmljckc5bypw5" path="res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/examples/rotate.gd" id="12_7tkvp"]
 [ext_resource type="PackedScene" uid="uid://c4ojae0ijnsme" path="res://Assets/Models/IconGLBs/Star/star.tscn" id="12_il86q"]
+[ext_resource type="Script" uid="uid://ddmj2wdvysqtq" path="res://Scripts/lore_zone.gd" id="13_vrmn3"]
+[ext_resource type="AudioStream" uid="uid://ccrtjq2f8c363" path="res://Assets/SFX/11L-click_sound-1755152575186.mp3" id="14_tcu4t"]
+[ext_resource type="Script" uid="uid://b7yj6o5rum5yi" path="res://Scripts/lore_interactable.gd" id="15_1x0tj"]
 [ext_resource type="AudioStream" uid="uid://ce4uiku2dp5tr" path="res://Assets/Textures/11L-Ethereal_playground,-1755078705878.mp3" id="16_rhbw5"]
 [ext_resource type="Material" uid="uid://cxc17yfnnikn1" path="res://Assets/Materials/Postfx/OutlinePostCanvas.tres" id="17_54c4m"]
 [ext_resource type="Texture2D" uid="uid://byrekve3lsed8" path="res://Assets/Models/Buildings/Rainbow/BirdTotemLowPoly_Fabric_04_Fabric_PBR StoA_Diffuse.webp" id="19_k41sh"]
@@ -202,8 +206,8 @@ _data = {
 script/source = "extends \"res://godotHypercasualShader-b205ec5a8fe0a55cf254421fceb19b0092df0e03/addons/hypercasualGradientShader/examples/wave.gd\"
 "
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_54c4m"]
-radius = 2.89998
+[sub_resource type="BoxShape3D" id="BoxShape3D_88hpn"]
+size = Vector3(5.23206, 4.23938, 4.28278)
 
 [sub_resource type="Curve" id="Curve_nfded"]
 _data = [Vector2(0.00234742, 0.959266), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -211,6 +215,12 @@ point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lightzone"]
 size = Vector3(8.7627, 7.11047, 8)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vrmn3"]
+radius = 1.47343
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pkucd"]
+radius = 0.430988
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5k3ni"]
 
@@ -411,17 +421,16 @@ speed = -5.0
 [node name="Milkfren_v01-resize" parent="MF_HOOK" instance=ExtResource("7_5a0xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06405, 0)
 
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53769, 1.06405, -8.40008)
-script = ExtResource("7_de3i5")
+[node name="Area3D" type="Area3D" parent="MF_HOOK/Milkfren_v01-resize"]
+script = ExtResource("8_k41sh")
+stream = ExtResource("8_de3i5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.724786, 0.289994)
-shape = SubResource("SphereShape3D_54c4m")
-debug_color = Color(0, 0.6, 0.701961, 0.858824)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MF_HOOK/Milkfren_v01-resize/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0158081, 1.61969, 0.155609)
+shape = SubResource("BoxShape3D_88hpn")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Area3D/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000682354, -0.031986, 0.00797367)
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MF_HOOK/Milkfren_v01-resize/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5296, -1.11035, 8.39553)
 stream = ExtResource("8_de3i5")
 volume_db = 8.101
 
@@ -448,13 +457,17 @@ light_color = Color(0.9388, 0.809368, 0.621138, 1)
 light_energy = 7.486
 light_bake_mode = 1
 
-[node name="LightZone" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, -16.2018)
+[node name="LightZone" type="Area3D" parent="OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.237878, -2.99205, 0.913301)
 script = ExtResource("10_lightzone")
-light_node_path = NodePath("../OmniLight3D")
+light_node_path = NodePath("..")
 intensity_on = 8.0
+sound_on_stream = ExtResource("11_pkucd")
+sound_off_stream = ExtResource("14_tcu4t")
+play_sound_on_turn_off = true
+sound_volume_db = 5.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LightZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OmniLight3D/LightZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.55524, 0)
 shape = SubResource("BoxShape3D_lightzone")
 
@@ -463,6 +476,78 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.570968, 4.47034, -12
 
 [node name="SewerDen-resize" parent="." instance=ExtResource("9_nfded")]
 transform = Transform3D(-1, 0, 8.74228e-08, 1.87742e-08, 0.976669, 0.214752, -8.53831e-08, 0.214752, -0.976669, 1.82489, 1.53115, -13.7621)
+
+[node name="Area3D" type="Area3D" parent="SewerDen-resize"]
+script = ExtResource("13_vrmn3")
+lore_id = "01"
+title_on_enter = "sewer den"
+body_on_enter = "a small small tiny man"
+require_interact = true
+one_shot = false
+sound_stream = ExtResource("14_tcu4t")
+sound_volume_db = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SewerDen-resize/Area3D"]
+transform = Transform3D(1, 3.67706e-13, 0, 0, 1, -4.47035e-08, 0, 4.47035e-08, 1, -0.125244, 1.09381, 0)
+shape = SubResource("SphereShape3D_vrmn3")
+
+[node name="WallArts" type="Node3D" parent="."]
+transform = Transform3D(-1, -3.54916e-13, 8.74228e-08, 1.87742e-08, 0.97667, 0.214752, -8.53831e-08, 0.214752, -0.97667, -4.5837, 2.92159, -14.8281)
+
+[node name="Wallart0" type="Area3D" parent="WallArts"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, 0, 0, 1, -4.76837e-07, -0.52989, -1.03115)
+script = ExtResource("15_1x0tj")
+lore_id = "0"
+title = "Captain"
+body = "keeps his goggles on in the bath"
+sound_stream = ExtResource("14_tcu4t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallArts/Wallart0"]
+shape = SubResource("SphereShape3D_pkucd")
+
+[node name="Wallart1" type="Area3D" parent="WallArts"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, 0, 0, 1, 0, -0.098331, 0.913595)
+script = ExtResource("15_1x0tj")
+lore_id = "1"
+title = "nell"
+body = "always knows when someone’s looking"
+sound_stream = ExtResource("14_tcu4t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallArts/Wallart1"]
+shape = SubResource("SphereShape3D_pkucd")
+
+[node name="Wallart35" type="Area3D" parent="WallArts"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("15_1x0tj")
+lore_id = "35"
+title = "kipp"
+body = "only climbs stairs sideways"
+sound_stream = ExtResource("14_tcu4t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallArts/Wallart35"]
+shape = SubResource("SphereShape3D_pkucd")
+
+[node name="Wallart44" type="Area3D" parent="WallArts"]
+transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, 0, 0, 1, 0, -0.908255, 0.189466)
+script = ExtResource("15_1x0tj")
+lore_id = "44"
+title = "orbo"
+body = "eats toast without the middle"
+sound_stream = ExtResource("14_tcu4t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallArts/Wallart44"]
+shape = SubResource("SphereShape3D_pkucd")
+
+[node name="Wallart81" type="Area3D" parent="WallArts"]
+transform = Transform3D(1, 0, 3.55271e-14, 0, 1, 0, 0, 0, 1, 0, -1.1615, 1.3412)
+script = ExtResource("15_1x0tj")
+lore_id = "81"
+title = "Miv"
+body = "smells every flower twice"
+sound_stream = ExtResource("14_tcu4t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallArts/Wallart81"]
+shape = SubResource("SphereShape3D_pkucd")
 
 [node name="Clouds" type="MeshInstance3D" parent="."]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, -7.84354, 0)
@@ -476,9 +561,9 @@ speed = -0.5
 [node name="Star" parent="STAR_HOOK" instance=ExtResource("12_il86q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034762, -1.5856, -0.000200272)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="worldambient" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_rhbw5")
-volume_db = -1.902
+volume_db = -3.0
 autoplay = true
 mix_target = 1
 parameters/looping = true
@@ -516,7 +601,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_tcu4t")
 
 [node name="SprayHook2" type="Node3D" parent="."]
-transform = Transform3D(0.671721, 0.740805, 0, -0.740805, 0.671721, 0, 0, 0, 1, 28.4564, 0.899481, -33.6456)
+transform = Transform3D(0.671721, 0.740805, 0, -0.740805, 0.671721, 0, 0, 0, 1, 28.4564, 0.899481, -37.9232)
 
 [node name="Spray" type="MeshInstance3D" parent="SprayHook2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 250.225, -0.102001)

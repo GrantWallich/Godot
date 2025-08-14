@@ -17,6 +17,10 @@ boot_splash/bg_color=Color(1, 0.75, 0.85, 1)
 boot_splash/use_filter=false
 boot_splash/image="res://icon.png"
 
+[autoload]
+
+LoreService="*res://Scripts/lore_service.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/UniParticles3D/plugin.cfg")
